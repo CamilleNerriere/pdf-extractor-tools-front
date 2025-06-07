@@ -1,0 +1,48 @@
+@use '../../styles/variables.scss' as v;
+
+.home {
+    &__description {
+        background-color: v.$sweet-beige;
+        border: 1px v.$stroke solid;
+        margin: 3rem 1rem;
+        padding: 1.5rem;
+        
+        p {
+            text-align: justify; 
+            text-justify: inter-word;
+        }
+
+        &__notice{
+            margin-top: 1rem;
+            font-style: italic;
+        }
+        ul {
+            margin: 1rem;
+        }
+
+        li {
+            margin-bottom: 1rem;
+        }
+
+        li::before {
+            content: "•";
+        }
+    }
+    
+    &__buttons{
+        display: flex;
+        justify-content: space-around;
+        padding: 3rem 5rem;
+        max-width: 500px;
+        margin:auto;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .home {
+        &__description{
+            margin : auto;
+            max-width: 600px;
+        }
+    }
+}

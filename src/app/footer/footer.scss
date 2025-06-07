@@ -4,11 +4,22 @@
     background-color: v.$footer;
     border-top: v.$stroke 1px solid;
     font-size: 0.8rem;
+    padding: 1rem 0 ;
 
     &__legal-infos {
+        padding : 0 2rem;
         display: flex;
         justify-content: space-around;
         padding: v.$gutter;
     }
 
+}
+
+@media screen and (min-width: 768px) {
+    .footer{
+        &__legal-infos{
+            max-width: 500px;
+            margin:auto;
+        }
+    }
 }
