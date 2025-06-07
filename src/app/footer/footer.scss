@@ -1,0 +1,14 @@
+@use '../../styles/variables.scss' as v;
+
+.footer {
+    background-color: v.$footer;
+    border-top: v.$stroke 1px solid;
+    font-size: 0.8rem;
+
+    &__legal-infos {
+        display: flex;
+        justify-content: space-around;
+        padding: v.$gutter;
+    }
+
+}

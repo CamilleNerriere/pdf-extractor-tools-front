@@ -1,0 +1,29 @@
+@use '../../styles/variables.scss' as v;
+
+.header {
+    background-color: v.$sweet-beige;
+    border-bottom: 1px solid v.$stroke;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    &__menu-button {
+        all: unset;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+        height: 2rem;
+        width: 2rem;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &__menu-icon {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+}

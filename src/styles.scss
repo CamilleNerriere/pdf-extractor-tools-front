@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@use './styles/variables.scss' as v;
+@import './reset.css';
+
+root {
+    background-color: v.$body;
+    color: v.$main;
+    font-family: Inter, sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1;
+    /* fix for Chrome */
+}
+
+@supports (font-variation-settings: normal) {
+    :root {
+        font-family: InterVariable, sans-serif;
+    }
+}
+
