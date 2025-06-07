@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-connect',
@@ -8,6 +8,15 @@ import {FormControl, ReactiveFormsModule} from '@angular/forms';
   styleUrl: './connect.scss'
 })
 export class Connect {
-   email = new FormControl('');
-   password = new FormControl('');
+  form = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl('')
+  })
+
+  hiddenPwd = true;
+
+  onSubmit() {
+    console.log(this.form.value);
+  }
+  
 }

@@ -1,7 +1,9 @@
 <header class="header">
-<img class="header__logo" src="assets/logo-header.svg" alt="">
-<button type="button" class="header__menu-button" aria-label="Open nav menu">
-    <img class="header__menu-icon" src="assets/menu.svg" alt="">
-</button>
+    <a routerLink="/">
+        <img class="header__logo" src="assets/logo-header.svg" alt="">
+    </a>
+    <button type="button" class="header__menu-button" aria-label="Open nav menu" (click)="onClick()">
+        <img class="header__menu-icon" src="assets/icons/menu.svg" alt="">
+    </button>
 
 </header>

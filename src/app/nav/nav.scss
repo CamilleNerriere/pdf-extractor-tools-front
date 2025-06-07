@@ -1,0 +1,64 @@
+@use '../../styles/variables.scss' as v;
+
+.nav {
+    background-color: v.$footer;
+    color: v.$main;
+    font-weight: 600;
+
+    padding: 1.5rem;
+
+    &--mobile-hidden {
+        display: none;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .nav-link {
+        position: relative;
+        text-decoration: none;
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: currentColor;
+            transition: width 0.3s ease, color 0.3s ease;
+        }
+
+        &:hover {
+            color: v.$sweet-beige;
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
+    }
+
+    .active-link {
+        color: v.$light-beige;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .nav {
+        ul {
+            gap: 1.5rem;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+
+        &--mobile-hidden {
+            display: block;
+        }
+    }
+
+}

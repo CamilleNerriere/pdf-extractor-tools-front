@@ -3,13 +3,14 @@
 .footer {
     background-color: v.$footer;
     border-top: v.$stroke 1px solid;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     padding: 1rem 0 ;
 
     &__legal-infos {
         padding : 0 2rem;
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
+        gap : 1.5rem;
         padding: v.$gutter;
     }
 

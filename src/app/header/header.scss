@@ -28,3 +28,15 @@
         width: 1.5rem;
     }
 }
+
+@media screen and (min-width:768px) {
+
+    .header {
+
+        justify-content: start;
+        padding-left: 2rem;
+        &__menu-icon {
+            display: none;
+        }
+    }
+}

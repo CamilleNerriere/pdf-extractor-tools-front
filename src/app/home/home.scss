@@ -43,6 +43,10 @@
         &__description{
             margin : auto;
             max-width: 600px;
+
+            span {
+                font-weight: bold;
+            }
         }
     }
 }

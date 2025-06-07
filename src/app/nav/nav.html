@@ -1,0 +1,17 @@
+<div class="nav" [ngClass]="{ 'nav--mobile-hidden': !showNavBar()}">
+        <ul>
+                <li><a routerLink="/" class="nav-link" routerLinkActive="active-link"
+                                [routerLinkActiveOptions]="{exact:true}">Accueil</a></li>
+                <li *ngIf="isLogged()"><a routerLink="/extract" class="nav-link" routerLinkActive="active-link"
+                                [routerLinkActiveOptions]="{exact:true}">Outils PDF</a></li>
+                <li *ngIf="isLogged()"><a routerLink="#" class="nav-link" routerLinkActive="active-link"
+                                [routerLinkActiveOptions]="{exact:true}">Profil</a></li>
+                <li *ngIf="isLogged()"><a routerLink="#" class="nav-link" routerLinkActive="active-link"
+                                [routerLinkActiveOptions]="{exact:true}">Se déconnecter</a></li>
+                <li *ngIf="!isLogged()"><a routerLink="/connect" class="nav-link" routerLinkActive="active-link"
+                                [routerLinkActiveOptions]="{exact:true}">Se connecter</a></li>
+                <li *ngIf="!isLogged()"><a routerLink="#" class="nav-link" routerLinkActive="active-link"
+                                [routerLinkActiveOptions]="{exact:true}">S'inscrire</a></li>
+
+        </ul>
+</div>
