@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Home } from './home/home';
 import { Connect } from './connect/connect';
 import { Extractor } from './extractor/extractor';
+import { Profil } from './profil/profil';
 
 export const routes: Routes = [
     {
@@ -15,5 +16,9 @@ export const routes: Routes = [
     {
         path : 'extract', 
         component: Extractor
+    },
+    {
+        path : 'profil', 
+        component : Profil
     }
 ];

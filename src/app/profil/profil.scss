@@ -1,0 +1,32 @@
+@use '../../styles/variables.scss' as v;
+
+.profil {
+    &__infos {
+        background-color: v.$sweet-beige;
+        border: 1px v.$stroke solid;
+
+        margin: 3rem 1rem;
+        padding: 3rem 1.5rem;
+        line-height: 1.5rem;
+
+        &__edit {
+            margin-top: 2rem;
+            text-align: center;
+        
+            .button-normal{
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+
+    .profil {
+
+        &__infos {
+            max-width: 500px;
+            margin: auto;
+        }
+    }
+}

@@ -1,5 +1,22 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
 @use './styles/variables.scss' as v;
 @import './reset.css';
+
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
 
 @font-face {
     font-family: "Ocean Typewriter";
@@ -95,3 +112,5 @@ h1 {
 // * {
 //   outline: 1px solid red;
 // }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

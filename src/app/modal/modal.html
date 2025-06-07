@@ -1,0 +1,25 @@
+<div class="modal">
+    <h2 class="modal__title" mat-dialog-title>Editer les informations</h2>
+    <mat-dialog-content>
+        <form  class="modal__form" [formGroup]="form">
+            <label>
+                Prénom :
+                <input type="text" formControlName="firstname" />
+            </label>
+
+            <label>
+                Nom :
+                <input type="text" formControlName="lastname" />
+            </label>
+
+            <label>
+                Nom d'utilisateur :
+                <input type="text" formControlName="username" />
+            </label>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button class="modal__button modal__button--cancel" mat-button (click)="onClose()">Annuler</button>
+        <button class="modal__button modal__button--submit" mat-flat-button color="primary" (click)="onValidate()">Valider</button>
+    </mat-dialog-actions>
+</div>

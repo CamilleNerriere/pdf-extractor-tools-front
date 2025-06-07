@@ -10,7 +10,7 @@
         padding : 0 2rem;
         display: flex;
         justify-content: center;
-        gap : 1.5rem;
+        gap : 1rem;
         padding: v.$gutter;
     }
 
@@ -21,6 +21,7 @@
         &__legal-infos{
             max-width: 500px;
             margin:auto;
+            gap: 1.5rem
         }
     }
 }
