@@ -1,1 +1,15 @@
-<p>connect works!</p>
+<div class="connect">
+    <h1>Connexion</h1>
+    <form class="connect__form">
+        <div>
+            <label class="sr-only" for="email">Email: </label>
+            <input class="input connect__input" id="email" type="text" placeholder="Email" [formControl]="email">
+        </div>
+        <div>
+            <label class="sr-only"for="password">Password: </label>
+            <input class="input connect__input" id="password" type="text" placeholder="Mot de passe" [formControl]="password">
+        </div>
+        <button class="button-normal" type="submit">Connexion</button>
+    </form>
+
+</div>

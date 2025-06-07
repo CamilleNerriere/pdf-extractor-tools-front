@@ -1,1 +1,57 @@
-<p>extractor works!</p>
+<div class="extractor">
+    <h1>Pdf tools</h1>
+
+    <p class="extractor__p">Choisissez votre mode d'extraction : </p>
+    <div class="extractor__form-container">
+        <div role="tablist" aria-label="Choix de l’outil" (keydown)="onKeyDown($event)" class="extractor__tablist" tabindex="0">
+            <button role="tab" [attr.aria-selected]="activeTab === 'citations'"
+                [class.active]="activeTab === 'citations'" [attr.id]="'tab-citations'"
+                [attr.tabindex]="activeTab === 'citations' ? 0 : -1" (click)="selectTab('citations')">
+                Citations
+            </button>
+
+            <button role="tab" [attr.aria-selected]="activeTab === 'annotations'"
+                [class.active]="activeTab === 'annotations'" [attr.id]="'tab-annotations'"
+                [attr.tabindex]="activeTab === 'annotations' ? 0 : -1" (click)="selectTab('annotations')">
+                Annotations
+            </button>
+        </div>
+
+        <form class="extractor__form-form" [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+
+            <div class="extractor__form__file">
+                <input type="file" id="file" class="sr-only" (change)="onFileChange($event)" />
+                <label for="file" class="extractor__form__file-button">Parcourir</label>
+                <span class="extractor__form__file-name">{{ form.value.file?.name || 'Aucun fichier sélectionné'
+                    }}</span>
+            </div>
+
+            <label class="sr-only" for="exportName">Nom de l’export :</label>
+            <input class="input extractor__input" id="exportName" type="text" placeholder="Nom de l'export"
+                formControlName="exportName" />
+
+            <fieldset class="extractor__form__fieldset">
+                <legend class="extractor__form__fieldset__format">Formats d’export :</legend>
+                <label>
+                    <input type="checkbox" (change)="toggleFormat('pdf')"
+                        [checked]="form.value.formats?.includes('pdf')" />
+                    .pdf
+                </label>
+                <label>
+                    <input type="checkbox" (change)="toggleFormat('txt')"
+                        [checked]="form.value.formats?.includes('txt')" />
+                    .txt
+                </label>
+                <label>
+                    <input type="checkbox" (change)="toggleFormat('docx')"
+                        [checked]="form.value.formats?.includes('docx')" />
+                    .docx
+                </label>
+            </fieldset>
+
+            <button class="button-normal extractor__form__button" type="submit">Exporter</button>
+        </form>
+    </div>
+
+
+</div>

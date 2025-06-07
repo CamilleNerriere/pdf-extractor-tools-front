@@ -1,0 +1,33 @@
+@use '../../styles/variables.scss' as v;
+
+.connect {
+
+    &__form {
+        background-color: v.$sweet-beige;
+        border: 1px v.$stroke solid;
+    
+        margin: 3rem 1rem;
+        padding: 3rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+
+        button{
+            padding: 0.5rem 1.5rem;
+            margin-top:  1rem;
+        }
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+
+    .connect {
+
+        &__form {
+            max-width: 500px;
+            margin: auto;
+        }
+    }
+}
