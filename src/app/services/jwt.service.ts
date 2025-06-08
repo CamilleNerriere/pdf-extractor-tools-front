@@ -2,6 +2,12 @@ import { environment } from "../../environments/environment.development";
 import { Injectable, inject } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, map, Observable } from "rxjs";
+import { jwtDecode } from 'jwt-decode';
+
+function isTokenExpired(token: string): boolean {
+    const decoded = jwtDecode<any>(token);
+    return decoded.exp < Date.now() / 1000;
+}
 
 @Injectable({
     providedIn: 'root',
@@ -12,11 +18,14 @@ export class JwtService {
     private url = environment.apiUrl + "/auth";
     private userSubject = new BehaviorSubject<string | null>(null);
 
-    //get token when start
+    //get token when start or clear if invalid token
     constructor() {
         const token = localStorage.getItem(this.TOKEN_KEY);
-        if (token) {
+        if (token && !isTokenExpired(token)) {
             this.userSubject.next(token);
+        } else {
+            this.userSubject.next(null);
+            this.clearToken();
         }
     }
 
@@ -30,6 +39,7 @@ export class JwtService {
 
     setToken(token: string): void {
         localStorage.setItem(this.TOKEN_KEY, token);
+        this.userSubject.next(token); 
     }
 
     getToken(): string | null {

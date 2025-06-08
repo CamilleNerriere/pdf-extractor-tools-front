@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import type { UserLogin } from '../../models/userLogin';
 import { AuthService } from '../../services/auth.service';
@@ -14,11 +14,9 @@ import { JwtService } from '../../services/jwt.service';
 })
 export class Login {
 
-  constructor(
-    private authService: AuthService,
-    private router : Router,
-    private jwtService : JwtService
-  ) { }
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private jwtService = inject(JwtService);
  
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -54,7 +52,7 @@ export class Login {
             this.setInvalidValues(error.error.message);
           }
         },
-        complete: () => this.router.navigate([''])
+        complete: () => this.router.navigate(['extract'])
       });
     } else {
       this.setInvalidValues("Email ou mot de passe invalide.");

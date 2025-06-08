@@ -7,11 +7,11 @@
                 <li *ngIf="isLogged()"><a routerLink="/profil" class="nav-link" routerLinkActive="active-link"
                                 [routerLinkActiveOptions]="{exact:true}">Profil</a></li>
                 <li *ngIf="isLogged()"><a routerLink="#" class="nav-link" routerLinkActive="active-link"
-                                [routerLinkActiveOptions]="{exact:true}">Se déconnecter</a></li>
-                <li *ngIf="!isLogged()"><a routerLink="/connect" class="nav-link" routerLinkActive="active-link"
+                                [routerLinkActiveOptions]="{exact:true}"(click)="logout()">Se déconnecter</a></li>
+                <li *ngIf="!isLogged()"><a routerLink="/login" class="nav-link" routerLinkActive="active-link"
                                 [routerLinkActiveOptions]="{exact:true}">Se connecter</a></li>
                 <li *ngIf="!isLogged()"><a routerLink="#" class="nav-link" routerLinkActive="active-link"
-                                [routerLinkActiveOptions]="{exact:true}">S'inscrire</a></li>
+                                [routerLinkActiveOptions]="{exact:true}" >S'inscrire</a></li>
 
         </ul>
 </div>
