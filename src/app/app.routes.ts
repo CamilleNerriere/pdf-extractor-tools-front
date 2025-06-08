@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/authGuard';
 import { Home } from './components/home/home';
 import { Login } from './components/login/login';
 import { Extractor } from './components/extractor/extractor';
@@ -15,10 +16,12 @@ export const routes: Routes = [
     },
     {
         path : 'extract', 
-        component: Extractor
+        component: Extractor,
+        canActivate: [authGuard]
     },
     {
         path : 'profil', 
-        component : Profil
+        component : Profil,
+        canActivate: [authGuard]
     }
 ];
