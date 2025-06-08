@@ -19,7 +19,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 export class Modal {
   dialogRef = inject(MatDialogRef<Modal>);
   private _data = inject(MAT_DIALOG_DATA);
-  data: { firstname: string, lastname: string, username: string } = this._data;
+  data: { firstname: string, lastname: string, username: string, email: string } = this._data;
 
 
   form = new FormGroup({
