@@ -3,7 +3,8 @@
 
     <p class="extractor__p">Choisissez votre mode d'extraction : </p>
     <div class="extractor__form-container">
-        <div role="tablist" aria-label="Choix de l’outil" (keydown)="onKeyDown($event)" class="extractor__tablist" tabindex="0">
+        <div role="tablist" aria-label="Choix de l’outil" (keydown)="onKeyDown($event)" class="extractor__tablist"
+            tabindex="0">
             <button role="tab" [attr.aria-selected]="activeTab === 'citations'"
                 [class.active]="activeTab === 'citations'" [attr.id]="'tab-citations'"
                 [attr.tabindex]="activeTab === 'citations' ? 0 : -1" (click)="selectTab('citations')">
@@ -20,17 +21,30 @@
         <form class="extractor__form-form" [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
 
             <div class="extractor__form__file">
-                <input type="file" id="file" class="sr-only" (change)="onFileChange($event)" />
+                <input type="file" id="file" class="sr-only" (change)="onFileChange($event)"
+                    [attr.aria-invalid]="form.get('file')?.invalid && form.get('file')?.touched" />
                 <label for="file" class="extractor__form__file-button">Parcourir</label>
                 <span class="extractor__form__file-name">{{ form.value.file?.name || 'Aucun fichier sélectionné'
                     }}</span>
+                <div class="extractor__form__error"
+                    *ngIf="form.get('file')?.touched && form.get('file')?.hasError('required')">
+                    Veuillez sélectionner un fichier.
+                </div>
+
             </div>
 
             <label class="sr-only" for="exportName">Nom de l’export :</label>
             <input class="input extractor__input" id="exportName" type="text" placeholder="Nom de l'export"
-                formControlName="exportName" />
+                formControlName="exportName"
+                [attr.aria-describedby]="form.get('exportName')?.invalid && form.get('exportName')?.touched ? 'exportName-error' : null" />
+            <div class="extractor__form__error"
+                *ngIf="form.get('exportName')?.touched && form.get('exportName')?.hasError('required')"
+                id="exportName-error">
+                Veuillez entrer un nom.
+            </div>
 
-            <fieldset class="extractor__form__fieldset">
+            <fieldset class="extractor__form__fieldset"
+                [attr.aria-describedby]="form.get('formats')?.invalid && form.get('formats')?.touched ? 'formats-error' : null">
                 <legend class="extractor__form__fieldset__format">Formats d’export :</legend>
                 <label>
                     <input type="checkbox" (change)="toggleFormat('pdf')"
@@ -43,13 +57,24 @@
                     .txt
                 </label>
                 <label>
-                    <input type="checkbox" (change)="toggleFormat('docx')"
-                        [checked]="form.value.formats?.includes('docx')" />
-                    .docx
+                    <input disabled type="checkbox" (change)="toggleFormat('word')"
+                        [checked]="form.value.formats?.includes('word')" />
+                    .docx <span class="checkbox-disabled">(à venir)</span>
                 </label>
+                <div class="extractor__form__error"
+                    *ngIf="form.get('formats')?.touched && form.get('formats')?.hasError('required')"
+                    id="formats-error">
+                    Veuillez sélectionner au moins un format.
+                </div>
+
+
             </fieldset>
 
-            <button class="button-normal extractor__form__button" type="submit">Exporter</button>
+            <div *ngIf="isLoading" class="spinner-overlay">
+                <div class="spinner"></div>
+            </div>
+
+            <button class="button-normal extractor__form__button" type="submit" [disabled]="isLoading">Exporter</button>
         </form>
     </div>
 

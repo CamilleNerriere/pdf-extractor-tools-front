@@ -29,10 +29,10 @@
         padding: 1rem;
         p {
             text-align: center;
-            color: rgb(116, 18, 18);
+            color: v.$red-error;
         }
 
-        border :rgb(116, 18, 18) solid 1px;
+        border : v.$red-error;
     }
 
 }

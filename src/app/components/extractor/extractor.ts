@@ -1,23 +1,29 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ExtractorService } from '../../services/extractor.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-extractor',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './extractor.html',
   styleUrl: './extractor.scss'
 })
 export class Extractor {
+
+  private extractorService = inject(ExtractorService);
+  private snackBar = inject(MatSnackBar);
+  isLoading = false;
+
+
   form = new FormGroup({
-    file: new FormControl<File | null>(null),
-    exportName: new FormControl(''),
-    formats: new FormControl<string[]>([])
+    file: new FormControl<File | null>(null, [Validators.required]),
+    exportName: new FormControl('', [Validators.required]),
+    formats: new FormControl<string[]>([], [Validators.required])
   });
 
-  onSubmit() {
-    console.log(this.form.value);
-  }
-
+  // mode gestion
   tabs = ['citations', 'annotations'] as const;
   activeTab: 'citations' | 'annotations' = 'citations';
 
@@ -26,7 +32,6 @@ export class Extractor {
   }
 
   onKeyDown(event: KeyboardEvent) {
-    console.log("key");
     const currentIndex = this.tabs.indexOf(this.activeTab);
     if (event.key === 'ArrowRight') {
       const nextIndex = (currentIndex + 1) % this.tabs.length;
@@ -48,9 +53,80 @@ export class Extractor {
     }
   }
 
+  // on va passer l'url en arg aussi et les données 
+
+
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0] || null;
     this.form.controls['file'].setValue(file);
+    this.form.controls['file'].markAsTouched();
   }
+
+  onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched(); // ➤ force l'affichage des erreurs
+      return;
+    }
+
+    this.isLoading = true;
+
+    try {
+      const formData = this.convertToFormData(this.form.value);
+      this.extractorService.extract(this.activeTab, formData).subscribe({
+        next: blob => {
+
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'result.zip';
+          a.click();
+          window.URL.revokeObjectURL(url);
+
+          this.snackBar.open('Téléchargement terminé !', 'Fermer', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['custom-snackbar']
+          });
+          this.isLoading = false;
+        },
+        error: error => {
+          console.log(error);
+          this.snackBar.open('Erreur lors de l’export', 'Fermer', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['custom-snackbar']
+          });
+          this.isLoading = false;
+        }
+      })
+    } catch (error) {
+      console.log(error);
+      this.isLoading = false;
+    }
+  }
+
+  convertToFormData(values: Partial<{ file: File | null; exportName: string | null; formats: string[] | null; }>): FormData {
+    const formData = new FormData();
+    const file = values.file;
+    const title = values.exportName;
+    const formats = values.formats;
+
+
+    if (file) formData.append('file', file);
+    if (title) formData.append('title', title);
+    if (formats && formats.length > 0) {
+      formats.forEach(format => formData.append('formats', format));
+    }
+
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+
+    return formData;
+  }
+
+
 }
