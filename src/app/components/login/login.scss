@@ -1,6 +1,6 @@
-@use '../../styles/variables.scss' as v;
+@use '../../../styles/variables.scss' as v;
 
-.connect {
+.login {
 
     &__form {
         background-color: v.$sweet-beige;
@@ -17,6 +17,22 @@
             padding: 0.5rem 1.5rem;
             margin-top: 1rem;
         }
+    }
+
+    &__input {
+        width: 15rem;
+    }
+
+    &__toast-show {
+
+        margin: 1rem;
+        padding: 1rem;
+        p {
+            text-align: center;
+            color: rgb(116, 18, 18);
+        }
+
+        border :rgb(116, 18, 18) solid 1px;
     }
 
 }
@@ -37,11 +53,16 @@
 
 @media screen and (min-width: 768px) {
 
-    .connect {
+    .login {
 
-        &__form {
+        &__form{
             max-width: 500px;
             margin: auto;
+        }
+
+        &__toast-show {
+            max-width: 500px;
+            margin: 2.5rem auto;
         }
     }
 }

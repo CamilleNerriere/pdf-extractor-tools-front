@@ -1,21 +1,24 @@
-<div class="connect">
+<div class="login">
     <h1>Connexion</h1>
-    <form class="connect__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form class="login__form" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div>
             <label class="sr-only" for="email">Email: </label>
-            <input class="input connect__input" id="email" type="text" placeholder="Email" formControlName="email">
+            <input class="input login__input" id="email" type="text" placeholder="Email" formControlName="email">
         </div>
         <div>
             <label class="sr-only" for="password">Password: </label>
             <div class="input-wrapper">
-                <input class="input connect__input" id="password" [type]="hiddenPwd ? 'password' : 'text'"
+                <input class="input login__input" id="password" [type]="hiddenPwd ? 'password' : 'text'"
                     placeholder="Mot de passe" formControlName="password">
                 <img [src]="hiddenPwd ? 'assets/icons/visible-password.svg' : 'assets/icons/hidden-password.svg'"
                     [alt]="hiddenPwd ? 'Mot de passe masqué' : 'Mot de passe visible'" (click)="hiddenPwd = !hiddenPwd"
                     class="eye-icon">
             </div>
         </div>
-        <button class="button-normal" type="submit">Connexion</button>
+        <button class="button-normal" type="submit" [disabled]="form.invalid">Connexion</button>
     </form>
 
+    <div class="login__toast" [ngClass]="{'login__toast-show' : showToast()}">
+        <p>{{errorMessage()}}</p>
+    </div>
 </div>

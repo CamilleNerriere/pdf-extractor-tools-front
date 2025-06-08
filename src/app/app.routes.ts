@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { Home } from './home/home';
-import { Connect } from './connect/connect';
-import { Extractor } from './extractor/extractor';
-import { Profil } from './profil/profil';
+import { Home } from './components/home/home';
+import { Login } from './components/login/login';
+import { Extractor } from './components/extractor/extractor';
+import { Profil } from './components/profil/profil';
 
 export const routes: Routes = [
     {
@@ -10,8 +10,8 @@ export const routes: Routes = [
         component: Home
     },
     {
-        path : 'connect',
-        component: Connect
+        path : 'login',
+        component: Login
     },
     {
         path : 'extract', 
