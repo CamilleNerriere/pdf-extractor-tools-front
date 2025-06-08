@@ -4,6 +4,7 @@ import type { UserLogin } from '../../models/userLogin';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { JwtService } from '../../services/jwt.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class Login {
 
   constructor(
     private authService: AuthService,
-    private router : Router
+    private router : Router,
+    private jwtService : JwtService
   ) { }
  
   form = new FormGroup({
@@ -43,7 +45,7 @@ export class Login {
       }
       this.authService.login(userLogin).subscribe({
         next: response => {
-          this.authService.setJwt(response.token);
+          this.jwtService.setToken(response.token);
         },
         error: error => {
           if (error.error.status === 401) {

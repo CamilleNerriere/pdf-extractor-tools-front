@@ -14,17 +14,18 @@ export class AuthService {
     private jwtService = inject(JwtService);
     private url = environment.apiUrl + "/auth";
 
-    httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-        })
-    };
+    login(user: UserLogin): Observable<{ token: string }> {
 
-    login(user: UserLogin): Observable<any> {
-        return this.http.post<string>(`${this.url}/login`, user, this.httpOptions,);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+        return this.http.post<{token : string}>(`${this.url}/login`, user, httpOptions,);
     }
 
-    setJwt(jwt : string) : void {
-        this.jwtService.setToken(jwt);
+    logout(){
+        this.jwtService.logout();
     }
+
 }
