@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'monsite.com'
+    apiUrl: 'https://noesis-pdf-tools.onrender.com'
 };
