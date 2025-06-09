@@ -57,9 +57,9 @@
                     .txt
                 </label>
                 <label>
-                    <input disabled type="checkbox" (change)="toggleFormat('word')"
+                    <input type="checkbox" (change)="toggleFormat('word')"
                         [checked]="form.value.formats?.includes('word')" />
-                    .docx <span class="checkbox-disabled">(à venir)</span>
+                    .docx 
                 </label>
                 <div class="extractor__form__error"
                     *ngIf="form.get('formats')?.touched && form.get('formats')?.hasError('required')"
