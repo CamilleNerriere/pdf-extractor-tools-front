@@ -22,7 +22,4 @@ export class App {
     this.isLogged = toSignal(this.jwtService.isLoggedIn$, { initialValue: false });
   }
 
-  ngOnInit(): void {
-    console.log('Statut connecté (via ngOnInit):', this.isLogged());
-  }
 }

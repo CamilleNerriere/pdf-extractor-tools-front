@@ -18,15 +18,22 @@
             }
         }
     }
+
+    &__error{
+        border: v.$red-error 1px solid;
+        color : v.$red-error;
+        padding: 1rem;
+        margin: 1rem;
+    }
 }
 
 @media screen and (min-width: 768px) {
 
     .profil {
 
-        &__infos {
+        &__infos, &__error {
             max-width: 500px;
-            margin: auto;
+            margin: 2rem auto;
         }
     }
 }

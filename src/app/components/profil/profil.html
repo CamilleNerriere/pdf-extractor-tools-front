@@ -1,6 +1,10 @@
 <div class="profil">
     <h1>Mes informations</h1>
 
+    <div class="profil__error" *ngIf="(errorLoadingUserInfos())">
+        Impossible de charger les informations. Veuillez réessayer.
+    </div>
+
     <div class="profil__infos">
         <p>Prénom : {{data()?.firstname}}</p>
         <p>Nom : {{data()?.lastname}}</p>

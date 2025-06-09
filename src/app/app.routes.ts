@@ -4,6 +4,7 @@ import { Home } from './components/home/home';
 import { Login } from './components/login/login';
 import { Extractor } from './components/extractor/extractor';
 import { Profil } from './components/profil/profil';
+import { NotFound } from './not-found/not-found';
 
 export const routes: Routes = [
     {
@@ -23,5 +24,10 @@ export const routes: Routes = [
         path : 'profil', 
         component : Profil,
         canActivate: [authGuard]
+    },
+    {
+        path:'**', 
+        pathMatch: 'full',
+        component: NotFound
     }
 ];

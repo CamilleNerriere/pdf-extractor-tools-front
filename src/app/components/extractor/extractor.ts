@@ -53,9 +53,6 @@ export class Extractor {
     }
   }
 
-  // on va passer l'url en arg aussi et les données 
-
-
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0] || null;
@@ -65,7 +62,7 @@ export class Extractor {
 
   onSubmit() {
     if (this.form.invalid) {
-      this.form.markAllAsTouched(); // ➤ force l'affichage des erreurs
+      this.form.markAllAsTouched(); 
       return;
     }
 
@@ -92,7 +89,6 @@ export class Extractor {
           this.isLoading = false;
         },
         error: error => {
-          console.log(error);
           this.snackBar.open('Erreur lors de l’export', 'Fermer', {
             duration: 3000,
             horizontalPosition: 'center',
@@ -103,7 +99,12 @@ export class Extractor {
         }
       })
     } catch (error) {
-      console.log(error);
+      this.snackBar.open('Erreur lors de l’export', 'Fermer', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['custom-snackbar']
+      });
       this.isLoading = false;
     }
   }
@@ -119,10 +120,6 @@ export class Extractor {
     if (title) formData.append('title', title);
     if (formats && formats.length > 0) {
       formats.forEach(format => formData.append('formats', format));
-    }
-
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
     }
 
     return formData;
