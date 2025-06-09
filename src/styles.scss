@@ -30,6 +30,17 @@ root {
     /* fix for Chrome */
 }
 
+
+// toast material 
+
+:root {
+  @include mat.snack-bar-overrides((
+    button-color: v.$light-beige,
+    container-color: v.$main,
+  ));
+}
+
+
 @supports (font-variation-settings: normal) {
     :root {
         font-family: InterVariable, sans-serif;
@@ -120,16 +131,5 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-// toast material 
-.custom-snackbar {
-    color: #FFFCF9;
-    font-weight: 500;
-    border-radius: 6px;
-    padding: 12px 16px;
 
-    button {
-        color: #EDE8E4 !important;
-        font-weight: bold;
-    }
-}
 

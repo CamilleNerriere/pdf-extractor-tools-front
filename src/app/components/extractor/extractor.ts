@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtractorService } from '../../services/extractor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,6 +22,9 @@ export class Extractor {
     exportName: new FormControl('', [Validators.required]),
     formats: new FormControl<string[]>([], [Validators.required])
   });
+
+  //manual reset gestion for input file
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   // mode gestion
   tabs = ['citations', 'annotations'] as const;
@@ -62,7 +65,7 @@ export class Extractor {
 
   onSubmit() {
     if (this.form.invalid) {
-      this.form.markAllAsTouched(); 
+      this.form.markAllAsTouched();
       return;
     }
 
@@ -73,19 +76,32 @@ export class Extractor {
       this.extractorService.extract(this.activeTab, formData).subscribe({
         next: blob => {
 
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'result.zip';
-          a.click();
-          window.URL.revokeObjectURL(url);
+          if (blob != null) {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'result.zip';
+            a.click();
+            window.URL.revokeObjectURL(url);
 
-          this.snackBar.open('Téléchargement terminé !', 'Fermer', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: ['custom-snackbar']
-          });
+            this.form.reset();
+            this.fileInput.nativeElement.value = '';
+
+            this.snackBar.open('Téléchargement terminé !', 'Fermer', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: ['custom-snackbar']
+            });
+          } else {
+            this.snackBar.open('Aucune donnée à extraire. Veuillez sélectionner un autre pdf.', 'Fermer', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: ['custom-snackbar']
+            });
+          }
+
           this.isLoading = false;
         },
         error: error => {
@@ -124,6 +140,5 @@ export class Extractor {
 
     return formData;
   }
-
 
 }

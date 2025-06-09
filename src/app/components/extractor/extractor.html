@@ -21,7 +21,7 @@
         <form class="extractor__form-form" [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
 
             <div class="extractor__form__file">
-                <input type="file" id="file" class="sr-only" (change)="onFileChange($event)"
+                <input type="file" id="file" class="sr-only" (change)="onFileChange($event)" #fileInput
                     [attr.aria-invalid]="form.get('file')?.invalid && form.get('file')?.touched" />
                 <label for="file" class="extractor__form__file-button">Parcourir</label>
                 <span class="extractor__form__file-name">{{ form.value.file?.name || 'Aucun fichier sélectionné'
