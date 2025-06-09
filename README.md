@@ -1,59 +1,57 @@
 # PdfToolsFront
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.1.
+This frontend is a demo interface for interacting with the backend of the Noësis PDF Extractor Tools.
+It allows users to upload PDF files and export citations or annotations in various formats (PDF, DOCX, TXT).
 
-## Development server
+This frontend is part of the broader initiative, which aims to create tools for researchers and students.
 
-To start a local development server, run:
+The backend — which handles extraction logic and file generation — is available [here](https://github.com/CamilleNerriere/pdf-extractor-tools)
 
-```bash
-ng serve
+## Preview
+
+You can fin the demo [here](https://noesis-pdf-tools.vercel.app/)
+
+![Home preview](public/preview/home.png "Homepage preview")
+
+![Extract](public/preview/home.png "Extract preview")
+
+## Main Features
+
+* Upload a PDF file
+* Choose between citation or annotation extraction
+* Select export format (PDF, DOCX, or TXT)
+* Download the resulting ZIP file
+* Basic login with JWT authentication
+
+## Tech Stack
+
+* Angular 20/ TypeScript
+* Custom CSS (no framework)
+* HttpClient (for backend communication)
+
+## Getting started
+
+`````
+npm install
+npm start
+``````
+
+Make sure to set the backend URL in environment.development.ts/environment.ts : 
+
+```javascript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080'
+};
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Turn off the registration limitation 
 
-## Code scaffolding
+If you want to test the app locally with your own account, you can disable the demo mode by modifying the AuthController in the backend code:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+```java
+private final boolean IS_DEMO = true;
+````
 
-```bash
-ng generate component component-name
-```
+Or you can try the demo public version [here](https://noesis-pdf-tools.vercel.app/) and send me a message at camille.nerriere@proton.me. I’ll be happy to provide you with the demo access code!
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
