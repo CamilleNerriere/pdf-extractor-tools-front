@@ -2,8 +2,12 @@
   <div class="app-container">
     <app-header [(showNavBar)]="showNavBar" class="app__header"></app-header>
     <main class="app__content">
-      <app-nav [isLogged]="isLogged" [showNavBar]="showNavBar"></app-nav>
-      <router-outlet></router-outlet>
+      <div *ngIf="environment.maintenance" class="maintenance-banner">
+        <h2>Maintenance en cours : une mise à jour est actuellement déployée. Merci de revenir un peu plus tard.</h2>
+      </div>
+
+      <app-nav *ngIf="!environment.maintenance" [isLogged]="isLogged" [showNavBar]="showNavBar"></app-nav>
+      <router-outlet *ngIf="!environment.maintenance"></router-outlet>
     </main>
     <app-footer class="app__footer"></app-footer>
   </div>
