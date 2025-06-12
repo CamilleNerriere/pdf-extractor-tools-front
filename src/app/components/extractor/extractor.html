@@ -1,7 +1,10 @@
 <div class="extractor">
     <h1>Pdf tools</h1>
 
+    <p class="extractor__p warning">Note : pour la version de démo, la taille limite est de 100 Mo pour les annotations
+        et 50 Mo pour les citations. L'opération peut prendre quelques minutes.</p>
     <p class="extractor__p">Choisissez votre mode d'extraction : </p>
+
     <div class="extractor__form-container">
         <div role="tablist" aria-label="Choix de l’outil" (keydown)="onKeyDown($event)" class="extractor__tablist"
             tabindex="0">
@@ -29,6 +32,9 @@
                 <div class="extractor__form__error"
                     *ngIf="form.get('file')?.touched && form.get('file')?.hasError('required')">
                     Veuillez sélectionner un fichier.
+                </div>
+                <div class="extractor__form__error" *ngIf="form.get('file')?.hasError('fileSize')">
+                    Le fichier est trop volumineux.
                 </div>
 
             </div>
@@ -59,7 +65,7 @@
                 <label>
                     <input type="checkbox" (change)="toggleFormat('word')"
                         [checked]="form.value.formats?.includes('word')" />
-                    .docx 
+                    .docx
                 </label>
                 <div class="extractor__form__error"
                     *ngIf="form.get('formats')?.touched && form.get('formats')?.hasError('required')"

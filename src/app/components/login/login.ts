@@ -17,7 +17,7 @@ export class Login {
   private authService = inject(AuthService);
   private router = inject(Router);
   private jwtService = inject(JwtService);
- 
+
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.maxLength(8)])
@@ -28,7 +28,7 @@ export class Login {
   showToast = signal(false);
   errorMessage = signal('');
 
-  setInvalidValues(message : string){
+  setInvalidValues(message: string) {
     this.showToast.set(true);
     this.errorMessage.set(message);
   }
@@ -48,8 +48,13 @@ export class Login {
         error: error => {
           if (error.error.status === 401) {
             this.setInvalidValues("Email ou mot de passe invalide.");
+          } else if (error.status === 0) {
+            this.setInvalidValues("Impossible de contacter le serveur. Veuillez vérifier votre connexion ou réessayez plus tard.")
+          }
+          else if (error.error && error.error.message) {
+            this.setInvalidValues(error.error.message)
           } else {
-            this.setInvalidValues(error.error.message);
+            this.setInvalidValues("Une erreur inattendue est survenue");
           }
         },
         complete: () => this.router.navigate(['extract'])

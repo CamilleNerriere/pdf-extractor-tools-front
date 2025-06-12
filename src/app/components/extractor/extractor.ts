@@ -3,6 +3,7 @@ import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ExtractorService } from '../../services/extractor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { fileSizeValidator } from './file-size.validator';
 
 @Component({
   selector: 'app-extractor',
@@ -16,9 +17,11 @@ export class Extractor {
   private snackBar = inject(MatSnackBar);
   isLoading = false;
 
+  citationsPdfMaxSize = 50 * 1024 * 1024; // 50Mo
+  annotationsPdfMaxSize = 100 * 1024 * 1024; // 100Mo
 
   form = new FormGroup({
-    file: new FormControl<File | null>(null, [Validators.required]),
+    file: new FormControl<File | null>(null, [Validators.required, fileSizeValidator(this.citationsPdfMaxSize)]),
     exportName: new FormControl('', [Validators.required]),
     formats: new FormControl<string[]>([], [Validators.required])
   });
@@ -32,6 +35,10 @@ export class Extractor {
 
   selectTab(tab: 'citations' | 'annotations') {
     this.activeTab = tab;
+
+    const maxSize = this.activeTab === 'citations' ? this.citationsPdfMaxSize : this.annotationsPdfMaxSize;
+    this.form.controls['file'].setValidators([Validators.required, fileSizeValidator(maxSize)]);
+    this.form.controls['file'].updateValueAndValidity();
   }
 
   onKeyDown(event: KeyboardEvent) {

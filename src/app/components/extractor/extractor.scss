@@ -6,7 +6,17 @@
 
     &__p {
         padding-left: 1rem;
+
+        &.warning {
+            font-size: 0.8rem;
+            color : v.$red-error;
+            padding: 1rem;
+            margin: 0 1rem 1rem;
+            border : 1px solid v.$red-error;
+        }
     }
+
+
 
     &__tablist {
         display: flex;
